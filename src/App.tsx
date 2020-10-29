@@ -1,25 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { url } from 'inspector';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Cards from './components/cards';
+import Header from './components/Header'
+import './reset.css'
+
+const BodyStyled = styled.div`
+  width: 80%;
+  height: 500px;
+  margin: 10px auto;
+  display: flex;
+`
+
+// const arrTeste: Array<Object> = [{name: 'pikachu'}, {name: 'charmander'}, {name: 'bulbasaur'}]
+
+interface PokeInterface {
+  name: string,
+  url: string
+}
 
 function App() {
+  const [urlPokes, setUrlPokes] = useState<Array<PokeInterface>>()
+
+  const urlApi: string = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=3'
+  
+  async function fetchData(url: string): Promise<void> {
+    await fetch(url)
+    .then(res => res.json())
+    .then(data => {
+        setUrlPokes(data.results)
+    })
+    .catch(err => console.log(err))
+  }
+  
+  useEffect(() => {
+    fetchData(urlApi)
+  }, [])
+  
+  function renderPokes(): any {
+    if(urlPokes) {
+      return urlPokes.map(( item: PokeInterface, index: any) => (
+        <Cards
+          key={index}
+          url={item.url}
+        />
+      ))
+    }
+    }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header name='Jordanoo'></Header>
+
+      <BodyStyled>
+        {renderPokes()}
+      </BodyStyled>
+    </>
   );
 }
 
