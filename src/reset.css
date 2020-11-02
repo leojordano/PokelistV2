@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
+
 * {
     padding: 0px;
     margin: 0px;
@@ -5,7 +7,63 @@
     outline: none;
 }
 
-body, html {
-    height: 100%;
+body, html, #root {
+    height: 98%;
     background-color: #343a40;
+    font-family: 'Offside', cursive;
+}
+
+.animate {
+    transition-duration: 0.3s;
+    opacity: 0%;
+    position: absolute;
+    display: none !important;
+}
+
+.setted {
+    opacity: 100% !important;
+    position: relative;
+    animation: animate 0.5s forwards;
+}
+
+.cardSetted {
+    /* opacity: 0%; */
+    display: none !important;
+
+    background-color: red;
+}
+
+.breakfast {
+    transition-duration: 0.5s;
+    width: 80vw !important;
+    height: 70vh !important;
+    z-index: 1000 !important;
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+    /* left: 50px; */
+    top: -10px;
+    margin: 0px !important;
+}
+.setted .header {
+    top: 0px;
+    height: 50px;
+}
+
+.setted .dinner {
+    z-index: 0;
+}
+
+@keyframes animate {
+    0% {
+        left: 0px;
+        top: 0px;
+    }
+
+    100% {
+        left: 0px;
+        top: 0px;
+    }
 }
